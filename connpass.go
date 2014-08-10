@@ -54,7 +54,7 @@ type Query struct {
 	Count int
 }
 
-func NewQery() Query {
+func NewQuery() Query {
 	q := Query{0, CREATE, 100}
 	return q
 }
