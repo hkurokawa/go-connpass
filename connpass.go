@@ -29,8 +29,8 @@ type Event struct {
 	Etype         string  `json:"event_type"`
 	Address       string  `json:"address"`
 	Place         string  `json:"place"`
-	Lat           float64 `json:"lat"`
-	Lon           float64 `json:"lon"`
+	Lat           string  `json:"lat"`
+	Lon           string  `json:"lon"`
 	OwnerID       int     `json:"owner_id"`
 	OwnerNickname string  `json:"owner_nickname"`
 	OwnerName     string  `json:"owner_display_name"`
