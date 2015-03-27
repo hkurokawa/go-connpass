@@ -157,7 +157,6 @@ func parse(jsonBlob []byte) (*ResultSet, error) {
 
 func (q Query) Search() (*ResultSet, error) {
 	url := q.buildURL()
-	log.Printf("Executing URL: %s\n", url)
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, err
