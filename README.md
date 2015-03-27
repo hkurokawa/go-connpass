@@ -1,5 +1,5 @@
 # go-connpass
-CONNPASS の API (http://connpass.com/about/api/) を Go で実装したものです。
+connpass のサーチ API (http://connpass.com/about/api/) を Go で実装したものです。
 
 ## インストール
     $ go get github.com/hkurokawa/go-connpass
