@@ -1,6 +1,9 @@
 # go-connpass
 CONNPASS の API (http://connpass.com/about/api/) を Go で実装したものです。
 
+## インストール
+        $ go get github.com/hkurokawa/go-connpass
+
 ## 使い方
 
 	query := connpass.Query{Start: 1, Order: connpass.CREATE}
@@ -18,3 +21,9 @@ CONNPASS の API (http://connpass.com/about/api/) を Go で実装したもの�
 	      fmt.Printf("\t%s\t%d\t%s\n", e.Start, e.Id, e.Title)
 	   }
 	}
+
+## ライセンス
+MIT
+
+## 作者
+Hiroshi Kurokawa
