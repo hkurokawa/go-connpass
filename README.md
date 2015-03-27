@@ -1,5 +1,5 @@
 # go-connpass
-CONNPASS の API (http://connpass.com/about/api/) を Go でラップしたものです。
+CONNPASS の API (http://connpass.com/about/api/) を Go で実装したものです。
 
 ## 使い方
 
@@ -9,7 +9,12 @@ CONNPASS の API (http://connpass.com/about/api/) を Go でラップしたも�
 	result, e := query.Search()
 	
 	if e != nil {
-	   log.Fatalf("Failed to fetch the result: %v\n", e)
+	   log.Errorf("Failed to fetch the result: %v\n", e)
 	} else {
-	   log.Printf("Available: %d, Returned: %d, Offset: %d\n", result.Available, result.Returned, result.Start)
+	   fmt.Printf("Num returned: %d\n", res.Returned)
+	   fmt.Printf("Num available: %d\n", res.Available)
+	   fmt.Printf("Start position: %d\n", res.Start)
+	   for _, e := range res.Events {
+	      fmt.Printf("\t%s\t%d\t%s\n", e.Start, e.Id, e.Title)
+	   }
 	}
