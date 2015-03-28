@@ -1,3 +1,40 @@
+/*
+Package connpass provides a search method for using the connpass API (See http://connpass.com/about/api/).
+
+Construct a query, then search with that on connpass. For example:
+
+	query := connpass.Query{}
+	// Retrieve the latest 10 events.
+	res, err := query.Search()
+
+Specify query parameters by setting fields of a Query object.
+
+	query := connpass.Query{Start: 1, Order: connpass.CREATE}
+	query.KeywordOr = []string{"go", "golang"}
+	query.Time = []connpass.Time{connpass.Time{Year: 2015, Month: 3}, connpass.Time{Year: 2015, Month: 4}}
+	// Retrieve the recently created 10 events containing "go" or "golang" in its title or description
+	// and being held in March or April, 2015.
+	res, err := query.Search()
+
+Pagination
+
+The search API supports pagenation. Pagenation options can be specified with Start, Order and Count.
+Pages information is available via ResultSet struct.
+
+	var allEvents []connpass.Event
+	for {
+		res, err := query.Search()
+		if err != nil {
+			return err
+		}
+		allEvents = append(allEvents, res.Events...)
+		offset := res.Start + res.Returned
+		if offset > res.Available {
+			break
+		}
+		query.Start = offset
+    }
+*/
 package connpass
 
 import (
@@ -11,8 +48,10 @@ import (
 	"strings"
 )
 
-const BASE_URL = "http://connpass.com/api/v1/event/"
+// BaseUrl is the base URL of the API (See http://connpass.com/about/api/)
+const BaseUrl = "http://connpass.com/api/v1/event/"
 
+// ResultSet specifies information about response and a set of returned events.
 type ResultSet struct {
 	Returned  int     `json:"results_returned"`
 	Available int     `json:"results_available"`
@@ -20,6 +59,7 @@ type ResultSet struct {
 	Events    []Event `json:"events"`
 }
 
+// Event specifies an event on connpass.
 type Event struct {
 	Id            int    `json:"event_id"`
 	Title         string `json:"title"`
@@ -43,7 +83,7 @@ type Event struct {
 	Updated       string `json:"updated_at"`
 }
 
-// Order of the returned events.
+// Order specifies how the returned events should be sorted.
 type Order int
 
 const (
@@ -52,20 +92,25 @@ const (
 	CREATE                  // 3: descending in created time
 )
 
-// Holding date of the event. If 0 is specified as Date, it is specified as the value of "ym", "ymd" otherwise.
+// Day or month at the event. If 0 is specified for Date, it represents the month, date otherwise.
+// For example, if Year = 2015, Month = 3 and Date = 0 (initial value), all the events held on March 2015 are returned.
 type Time struct {
 	Year  int
 	Month int
 	Date  int
 }
 
-// Format of the response.
+// Format specifies the format of the response.
+// Currently, only JSON format is supported.
 type Format string
 
 const (
 	JSON Format = "json"
 )
 
+// Query specifies the criteria of search. Note that multiple values can be specified for each parameter type.
+// And each type of the parameter is combined with other types with AND,
+// while the values of a parameter are combined with OR.
 type Query struct {
 	EventId     []int    // Event ID
 	KeywordAnd  []string // Keywords combined with AND operator
@@ -81,7 +126,7 @@ type Query struct {
 }
 
 func (q Query) buildURL() string {
-	u, err := url.Parse(BASE_URL)
+	u, err := url.Parse(BaseUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -155,6 +200,7 @@ func parse(jsonBlob []byte) (*ResultSet, error) {
 	return res, nil
 }
 
+// Search searches events on connpass with the specified query.
 func (q Query) Search() (*ResultSet, error) {
 	url := q.buildURL()
 	res, err := http.Get(url)
