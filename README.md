@@ -1,4 +1,6 @@
 # go-connpass
+[![GoDoc](https://godoc.org/github.com/hkurokawa/go-connpass?status.svg)](https://godoc.org/github.com/hkurokawa/go-connpass)
+
 [![Circle CI](https://circleci.com/gh/hkurokawa/go-connpass.svg?style=shield)](https://circleci.com/gh/hkurokawa/go-connpass)
 
 connpass のサーチ API (http://connpass.com/about/api/) を Go で実装したものです。
