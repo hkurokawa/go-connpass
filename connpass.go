@@ -1,5 +1,5 @@
 /*
-Package connpass provides a search method for using the connpass API (See http://connpass.com/about/api/).
+Package connpass provides a search method for using the connpass API (See https://connpass.com/about/api/).
 
 Construct a query, then search with that on connpass. For example:
 
@@ -48,8 +48,8 @@ import (
 	"strings"
 )
 
-// BaseUrl is the base URL of the API (See http://connpass.com/about/api/)
-const BaseUrl = "http://connpass.com/api/v1/event/"
+// BaseUrl is the base URL of the API (See https://connpass.com/about/api/)
+const BaseUrl = "https://connpass.com/api/v1/event/"
 
 // ResultSet specifies information about response and a set of returned events.
 type ResultSet struct {
