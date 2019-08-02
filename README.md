@@ -3,7 +3,7 @@
 [![Circle CI](https://circleci.com/gh/hkurokawa/go-connpass.svg?style=shield)](https://circleci.com/gh/hkurokawa/go-connpass)
 [![Coverage Status](https://coveralls.io/repos/hkurokawa/go-connpass/badge.svg)](https://coveralls.io/r/hkurokawa/go-connpass)
 
-connpass のサーチ API (http://connpass.com/about/api/) を Go で実装したものです。
+connpass のサーチ API (https://connpass.com/about/api/) を Go で実装したものです。
 
 ## インストール
     $ go get github.com/hkurokawa/go-connpass
